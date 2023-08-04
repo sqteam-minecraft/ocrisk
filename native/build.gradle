@@ -48,8 +48,8 @@ model {
                     cCompiler.args '-mmacosx-version-min=10.4'
                     linker.args '-mmacosx-version-min=10.4'
                 } else if (targetPlatform.operatingSystem.linux) {
-                    cCompiler.args '-I', "${jvmHome}/include"
-                    cCompiler.args '-I', "${jvmHome}/include/linux"
+                    cCompiler.args '-I', "${jvmHome}/../include"
+                    cCompiler.args '-I', "${jvmHome}/../include/linux"
                     cCompiler.args '-D_FILE_OFFSET_BITS=64'
                 } else if (targetPlatform.operatingSystem.windows) {
                     cppCompiler.args "-I${jvmHome}\\..\\include"
