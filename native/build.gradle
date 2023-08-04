@@ -1,0 +1,81 @@
+import org.gradle.internal.jvm.Jvm
+plugins {
+    id 'java-library'
+    id 'application'
+    id 'cpp'
+}
+
+group = 'org.sqteam.ocrisk'
+version = '1.0'
+jar.enabled = false
+
+repositories {
+    mavenCentral()
+}
+
+
+applicationDefaultJvmArgs += ["-Djava.library.path=" + file("${buildDir}/libs/ocrisk_native/shared").absolutePath]
+mainClassName = 'org.sqteam.ocrisk.Main'
+
+model {
+    platforms {
+        x64 {
+            architecture "x86_64"
+        }
+    }
+
+    components {
+        ocrisk_native(NativeLibrarySpec) {
+            sources {
+                cpp {
+                    source {
+                        srcDir "src/ocrisk_native/c"
+                        include '*.cpp'
+                    }
+                    exportedHeaders {
+                        srcDir 'src/ocrisk_native/include'
+                    }
+
+                }
+            }
+            targetPlatform "x64"
+            binaries.all {
+                def jvmHome = System.properties['java.home']
+                //def jvmHome = Jvm.current().javaHome
+                if (targetPlatform.operatingSystem.macOsX) {
+                    cCompiler.args '-I', "${jvmHome}/include"
+                    cCompiler.args '-I', "${jvmHome}/include/darwin"
+                    cCompiler.args '-mmacosx-version-min=10.4'
+                    linker.args '-mmacosx-version-min=10.4'
+                } else if (targetPlatform.operatingSystem.linux) {
+                    cCompiler.args '-I', "${jvmHome}/include"
+                    cCompiler.args '-I', "${jvmHome}/include/linux"
+                    cCompiler.args '-D_FILE_OFFSET_BITS=64'
+                } else if (targetPlatform.operatingSystem.windows) {
+                    cppCompiler.args "-I${jvmHome}\\..\\include"
+                    cppCompiler.args "-I${jvmHome}\\..\\include\\win32"
+                    print(cppCompiler.args)
+                } else if (targetPlatform.operatingSystem.freeBSD) {
+                    cCompiler.args '-I', "${jvmHome}/include"
+                    cCompiler.args '-I', "${jvmHome}/include/freebsd"
+                }
+            }
+        }
+    }
+}
+compileJava {
+    options.compilerArgs += ["-h", file("src/ocrisk_native/include")]
+}
+
+
+classes.dependsOn 'ocrisk_nativeSharedLibrary'
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.9.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
