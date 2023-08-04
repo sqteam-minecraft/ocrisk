@@ -3,6 +3,7 @@ plugins {
     id 'java-library'
     id 'application'
     id 'cpp'
+
 }
 
 group = 'org.sqteam.ocrisk'
@@ -16,6 +17,7 @@ repositories {
 
 applicationDefaultJvmArgs += ["-Djava.library.path=" + file("${buildDir}/libs/ocrisk_native/shared").absolutePath]
 mainClassName = 'org.sqteam.ocrisk.Main'
+
 
 model {
     platforms {
@@ -50,7 +52,8 @@ model {
                 } else if (targetPlatform.operatingSystem.linux) {
                     cppCompiler.args '-I', "${jvmHome}/../include"
                     cppCompiler.args '-I', "${jvmHome}/../include/linux"
-                    cppCompiler.args '-D_FILE_OFFSET_BITS=64 -std=c++20'
+                    cppCompiler.args '-D_FILE_OFFSET_BITS=64'
+                    cppCompiler.args '-std=c++20'
                 } else if (targetPlatform.operatingSystem.windows) {
                     cppCompiler.args "-I${jvmHome}\\..\\include"
                     cppCompiler.args "-I${jvmHome}\\..\\include\\win32"
