@@ -12,7 +12,6 @@ apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
-apply plugin: 'idea'
 
 version = '1.0'
 group = 'org.sqteam.ocrisk' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -20,18 +19,8 @@ archivesBaseName = 'ocrisk'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
-idea {
-    module {
-        inheritOutputDirs = true
-    }
-}
-
 subprojects {
     buildDir = rootProject.buildDir
-    apply plugin: 'idea'
-}
-legacy {
-    fixClasspath = true
 }
 
 
