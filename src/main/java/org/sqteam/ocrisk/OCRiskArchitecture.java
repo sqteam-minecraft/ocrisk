@@ -1,4 +1,4 @@
-package com.example.examplemod;
+package org.sqteam.ocrisk;
 
 import li.cil.oc.api.machine.Architecture;
 import li.cil.oc.api.machine.ExecutionResult;
@@ -26,7 +26,7 @@ public class OCRiskArchitecture implements Architecture {
 
     @Override
     public boolean recomputeMemory(Iterable<ItemStack> iterable) {
-        return false;
+        return true;
     }
 
     @Override
@@ -57,6 +57,7 @@ public class OCRiskArchitecture implements Architecture {
 
     @Override
     public void onConnect() {
+        new Main().print();
         logger.debug("connect");
     }
 
