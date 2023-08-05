@@ -46,6 +46,7 @@ minecraft {
 
             // Recommended logging data for a userdev environment
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            jvmArg "-XX:+AllowEnhancedClassRedefinition"
             setJvmArgs(getJvmArgs() + ["-Djava.library.path=" + file("${buildDir}/libs/ocrisk_native/shared").absolutePath])
 
             // Recommended logging level for the console
