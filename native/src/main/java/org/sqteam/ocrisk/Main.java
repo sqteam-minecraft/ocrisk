@@ -6,9 +6,13 @@ public class Main {
         System.loadLibrary("ocrisk_native");
     }
 
+    API api;
+
+    public Main(){
+        this.api = new API();
+    }
     public void print(){
-        long ptr = API.init();
-        API.test(ptr);
+        this.api.test();
     }
 
     public static void main(String[] args) {

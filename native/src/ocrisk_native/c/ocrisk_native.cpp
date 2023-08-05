@@ -14,7 +14,7 @@ public:
  * Method:    init
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_org_sqteam_ocrisk_API_init(JNIEnv * env, jclass clazz){
+JNIEXPORT jlong JNICALL Java_org_sqteam_ocrisk_API_init(JNIEnv * env, jobject clazz){
     Test *test = new Test(1234);
     std::cerr << "data is: " << test->val << " ptr is: " << test << std::endl;
     return (jlong)test;
@@ -25,7 +25,17 @@ JNIEXPORT jlong JNICALL Java_org_sqteam_ocrisk_API_init(JNIEnv * env, jclass cla
  * Method:    test
  * Signature: (J)V
  */
-JNIEXPORT void JNICALL Java_org_sqteam_ocrisk_API_test(JNIEnv * env, jclass clazz, jlong data){
+JNIEXPORT void JNICALL Java_org_sqteam_ocrisk_API_test(JNIEnv * env, jobject clazz, jlong data){
      std::cerr << "data is: " << ((Test*)data)->val << std::endl;
-     delete ((Test*)data);
+
 }
+
+/*
+ * Class:     org_sqteam_ocrisk_API
+ * Method:    destroy
+ * Signature: (J)V
+ */
+JNIEXPORT void JNICALL Java_org_sqteam_ocrisk_API_destroy
+  (JNIEnv * env, jobject obj, jlong data){
+       delete ((Test*)data);
+ }

@@ -13,7 +13,7 @@ extern "C" {
  * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_org_sqteam_ocrisk_API_init
-  (JNIEnv *, jclass);
+  (JNIEnv *, jobject);
 
 /*
  * Class:     org_sqteam_ocrisk_API
@@ -21,7 +21,15 @@ JNIEXPORT jlong JNICALL Java_org_sqteam_ocrisk_API_init
  * Signature: (J)V
  */
 JNIEXPORT void JNICALL Java_org_sqteam_ocrisk_API_test
-  (JNIEnv *, jclass, jlong);
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     org_sqteam_ocrisk_API
+ * Method:    destroy
+ * Signature: (J)V
+ */
+JNIEXPORT void JNICALL Java_org_sqteam_ocrisk_API_destroy
+  (JNIEnv *, jobject, jlong);
 
 #ifdef __cplusplus
 }

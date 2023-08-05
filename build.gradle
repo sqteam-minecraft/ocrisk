@@ -3,6 +3,8 @@ buildscript {
         maven { url = 'https://maven.minecraftforge.net/' }
         mavenCentral()
     }
+
+
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:3.+'
     }
@@ -73,6 +75,7 @@ dependencies {
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
+
     minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2860'
     compileOnly "li.cil.oc:OpenComputers:MC1.12.2-1.8.+:api"
     compile project(':native')
